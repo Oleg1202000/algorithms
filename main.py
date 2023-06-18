@@ -2,6 +2,8 @@
 import random
 import time
 
+from bubble_sort import bubble_sort
+
 
 def merge_sort(lst):
     index_half_list = len(lst) // 2
@@ -40,16 +42,32 @@ def merge_sort(lst):
 # unsorted_list = list(map(int, input().split(", ")))
 # unsorted_list = [1, 40, 20, 27, 3, 1, 4, 2, 12, -1]
 
-unsorted_list = list()
-n = random.randint(1, 50)
-for _ in range(n):
-    unsorted_list.append(random.randint(-1000, 1000))
+is_successfully = True
+for n in range(1, 100000):
+    unsorted_list = list()
+    # n = random.randint(10, 100000)
+    for _ in range(n):
+        unsorted_list.append(random.randint(-1000000, 1000000))
 
+    begin1 = time.time()
+    merge_sorted_list = merge_sort(unsorted_list)
+    end1 = time.time()
 
-begin = time.time()
-sorted_list = merge_sort(unsorted_list)
-end = time.time()
+    begin2 = time.time()
+    bubble_sorted_list = bubble_sort(unsorted_list)
+    end2 = time.time()
 
-print("Unsorted_list: " + str(unsorted_list))
-print(f"sorted in {end - begin} seconds, n = {n} \n")
-print("Sorted_list: " + str(sorted_list))
+    print(f"merge / bubble sorted: {(end1 - begin1)/(end2 - begin2)},"
+          f" \t merge: {(end1 - begin1)} s, "
+          f"\t bubble: {(end2 - begin2)} s, n = {n} \n")
+
+    for i in range(len(unsorted_list)):
+        if merge_sorted_list[i] != bubble_sorted_list[i]:
+            print("NO")
+            print("merge: " + str(merge_sorted_list))
+            print("bubble: " + str(bubble_sorted_list))
+            is_successfully = False
+            break
+    if not is_successfully:
+        print("merge != bubble")
+        break
