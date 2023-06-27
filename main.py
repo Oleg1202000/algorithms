@@ -7,9 +7,11 @@ class Solution:
     def removeElement(nums: List[int], val: int) -> int:
 
         k = 0
+        second_index = len(nums) - 1
         for _ in range(len(nums)):
             if nums[k] == val:
-                nums.pop(k)
+                nums[k], nums[second_index] = nums[second_index], nums[k]
+                second_index -= 1
             else:
                 k += 1
 
