@@ -1,36 +1,10 @@
-#include <iostream>
-
-using namespace std;
-
-void merge_sort(int* arr, int start_index, int stop_index);
-void print_array(int* arr, int size);
-
-
-int main() {
-    srand(42);
-    int range_min = -100;
-    int range_max = 100;
-    const int size = 30;
-    int arr[size];
-
-    for(int i=0;i<size;i++) {
-        arr[i] = rand() % (range_max - range_min) + range_min;
-    }
-
-    cout << "Unsorted: ";
-    print_array(arr, size);
-    merge_sort(arr, 0, size);
-    cout << "Sorted: ";
-    print_array(arr, size);
-}
-
-
 void merge_sort(int* arr, int start_index, int stop_index) {
 
     int size_subarray = stop_index - start_index;
     int half_index = start_index + (size_subarray) / 2;
 
     if (size_subarray > 2) {
+        // Разделяем массив на подмассивы пока длина > 2
         merge_sort(arr, start_index, half_index);
         merge_sort(arr, half_index, stop_index);
     }
@@ -59,12 +33,4 @@ void merge_sort(int* arr, int start_index, int stop_index) {
     for (int i=0; i<index;i++) {
         arr[start_index+i] = temp_arr[i];
     }
-}
-
-
-void print_array(int* arr, int size) {
-    for(int i=0;i<size;i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
 }
